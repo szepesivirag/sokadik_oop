@@ -1,0 +1,63 @@
+package homework;
+
+import java.util.Scanner;
+
+public class Homework {
+	public static void main(String[] args) {
+		
+	Scanner load = new Scanner(System.in);
+	int szam;
+	do {
+		System.out.println("kerek egy szamot 1-10 k�z�tt");
+		while(!load.hasNextInt()) {
+			System.out.println("ez nem szam");
+			load.next();
+		}
+		szam = load.nextInt();
+	}while(szam<1 || szam>10);
+	
+	Book[] bookarray = new Book[szam];
+	
+	Scanner author = new Scanner(System.in);
+	Scanner title = new Scanner(System.in);
+	Scanner price = new Scanner(System.in);
+	Scanner pages = new Scanner(System.in);
+	for(int i = 0 ; i< bookarray.length; i++)
+	{
+		Book alk = new Book(null,null,0,0);
+		System.out.println("kerek egy nevet:");
+		alk.setAuthor(author.next());
+		System.out.println("kerek egy cimet:");
+		alk.setTitle(title.next());
+		System.out.println("kerek egy arat:");
+		alk.setPrice(price.nextInt());
+		System.out.println("oldalszamok");
+		alk.setPages(pages.nextInt());
+		
+		bookarray[i] = alk;
+	}
+	
+	load.close();
+	author.close();
+	title.close();
+	price.close();
+	pages.close();
+	
+	for(int i = 0 ; i< bookarray.length; i++)
+	{
+	System.out.println(bookarray[i].hasEvenPages());
+	}
+	
+	System.out.println("konyv lista");
+	Book.listBookArray(bookarray);
+	
+	System.out.println("leghosszabb konyv");
+	System.out.println(Book.getLongestBook(bookarray));		
+	System.out.println("leghoszabb p�ros");
+	Book longest = Book.getLongestEvenPagesBook(bookarray);
+	System.out.println(longest);
+	System.out.println("megjelenes");
+	Book.authorStatistics(bookarray);
+
+	}
+}
